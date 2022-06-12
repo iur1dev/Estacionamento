@@ -1,0 +1,22 @@
+CREATE TABLE `cliente` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nome` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`email` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`data_nasc` INT(11) NOT NULL,
+	`cpf` INT(11) NOT NULL,
+	`celular` INT(11) NOT NULL,
+	`cidade_cli` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`bairro_cli` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`rua_cli` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`numero_cli` INT(11) NOT NULL,
+	`empresa` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`cnpj` INT(11) NOT NULL,
+	`bairro_id` INT(11) NOT NULL DEFAULT '0',
+	`rua` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`numero` INT(11) NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;
