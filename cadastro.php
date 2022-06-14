@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $dia_hora = $_POST['dia_hora'];
     $valor = $_POST['valor'];
 
-    if(isset($bairro_cli)){
+    if(!empty($bairro_cli)){
         $sql = "INSERT INTO cliente(nome,email,data_nasc,cpf,celular,cidade_cli,bairro_cli,rua_cli,numero_cli,
         empresa,cnpj,bairro_id,rua,numero,horario,valor)
         VALUE ('$nome','$email','$data_nasc','$cpf','$celular','$cidade','$bairro','$rua','$numero','$empresa',

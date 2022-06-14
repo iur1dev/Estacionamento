@@ -2,6 +2,23 @@
 
 include("conn.php");
 
+$sql = "SELECT * FROM cliente";
+$result = mysqli_query($conn, $sql);
+
+if (isset($_POST['enviar'])) {
+
+    $busca = $_POST['busca'];
+
+
+    $sql = "SELECT * FROM cliente WHERE nome LIKE '%$busca%'";
+    $sql = "SELECT * FROM cliente WHERE cpf LIKE '%$busca%'";
+    $sql = "SELECT * FROM cliente WHERE empresa LIKE '%$busca%'";
+    $sql = "SELECT * FROM cliente WHERE cnpj LIKE '%$busca%'";
+
+
+    $result = mysqli_query($conn, $sql);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -144,10 +161,62 @@ include("conn.php");
                 <div class="container-fluid px-4">
                     <br>
                     <form action="">
-                        <input type="text" name="busca" id="busca">
-                        <button type="submit">pesq</button>
+                        <input type="text" name="busca">
+                        <button type="submit" name="enviar">pesq</button>
                     </form>
                 </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">DataNasc</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Bairro</th>
+                            <th scope="col">Rua</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">CNPJ</th>
+                            <th scope="col">Bairro</th>
+                            <th scope="col">Rua</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (mysqli_num_rows($result) > 0) {
+                            while ($linha = mysqli_fetch_assoc($result)) {
+                        ?>
+                                <tr onclick="location.href='buscar.php?id=<?php echo $linha['id'] ?>'">
+                                    <th><?php echo $linha['id'] ?></th>
+                                    <td><?php echo $linha['nome'] ?></td>
+                                    <td><?php echo $linha['email'] ?></td>
+                                    <td><?php echo $linha['data_nasc'] ?></td>
+                                    <td><?php echo $linha['cpf'] ?></td>
+                                    <td><?php echo $linha['celular'] ?></td>
+                                    <td><?php echo $linha['cidade_cli'] ?></td>
+                                    <td><?php echo $linha['bairro_cli'] ?></td>
+                                    <td><?php echo $linha['rua_cli'] ?></td>
+                                    <td><?php echo $linha['numero_cli'] ?></td>
+                                    <td><?php echo $linha['empresa'] ?></td>
+                                    <td><?php echo $linha['cnpj'] ?></td>
+                                    <td><?php echo $linha['bairro_id'] ?></td>
+                                    <td><?php echo $linha['rua'] ?></td>
+                                    <td><?php echo $linha['numero'] ?></td>
+                                    <td><?php echo $linha['horario'] ?></td>
+                                    <td><?php echo $linha['valor'] ?></td>
+                                </tr>
+                        <?php }
+                        }
+                        mysqli_close($conn); ?>
+                    </tbody>
+                </table>
+
             </main>
         </div>
     </div>
