@@ -24,29 +24,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $dia_hora = $_POST['dia_hora'];
     $valor = $_POST['valor'];
 
-    if(!empty($bairro_cli)){
+    if (!empty($bairro_cli)) {
         $sql = "INSERT INTO cliente(nome,email,data_nasc,cpf,celular,cidade_cli,bairro_cli,rua_cli,numero_cli,
         empresa,cnpj,bairro_id,rua,numero,horario,valor)
         VALUE ('$nome','$email','$data_nasc','$cpf','$celular','$cidade','$bairro','$rua','$numero','$empresa',
         '$cnpj','$bairro_cli','$rua_cli','$numero_cli','$dia_hora','$valor')";
 
-    if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Cadastrado com Sucesso')</script>";
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('Cadastrado com Sucesso')</script>";
 
-        //  header('location:index.php');
+            //  header('location:index.php');
 
+        } else {
+            echo "erro: " . mysqli_error($conn);
+        }
+
+        mysqli_close($conn);
     } else {
-        echo "erro: " . mysqli_error($conn);
-    }
-
-    mysqli_close($conn);
-    }else {
         echo "<script>alert('Escolha o bairro')</script>";
     }
-
-    
 }
-
 
 ?>
 
@@ -259,8 +256,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <input type="text" class="form-control" id="inputZip" Readonly name="dia_hora" value="<?php echo date("d/m/Y - H:i:s") ?>">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputZip" class="form-label">Valor</label>
-                            <input type="text" class="form-control money" id="inputZip" name="valor">
+                            <label for="valor1" class="form-label">Valor</label>
+                            <input type="number" class="form-control" onblur="test()" id="valor1" name="valor1">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="valor" class="form-label">Valor a pagar</label>
+                            <input type="number" class="form-control" readonly id="valor" name="valor">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="parc" class="form-label">Parcelas</label>
+                            <input type="number" class="form-control" readonly id="parc" >
                         </div>
                         <div class="col-12">
                             <div class="form-check mt-4">
@@ -290,6 +295,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="jquery.mask.js"></script>
     <script src="mask.js"></script>
+
+    <script>
+        function test() {
+            let $valor1 = parseFloat(document.getElementById("valor1").value);
+            let porc = 20;
+
+            $juros = $valor1 * (porc / 100);
+            $final = ($juros + $valor1);
+            document.getElementById("valor").value = $final;
+
+            $finalP = $final / 30;
+            document.getElementById("parc").value = $finalP;
+        }
+    </script>
 
 </body>
 
