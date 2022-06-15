@@ -45,6 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 }
 
+// search
+$sql = "SELECT * FROM cliente";
+$result = mysqli_query($conn, $sql);
+
+if (isset($_POST['enviar'])) {
+
+    $busca = $_POST['busca'];
+
+
+    $sql = "SELECT * FROM cliente WHERE nome LIKE '%$busca%' OR email LIKE '%$busca%' OR cpf LIKE '%$busca%' OR cnpj LIKE '%$busca%'";
+
+
+    $result = mysqli_query($conn, $sql);
+}
+
+?>
 ?>
 
 <!DOCTYPE html>
@@ -71,10 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <i class="fas fa-bars"></i>
         </button>
         <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="POST" action="busca.php">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+                <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="submit" name="enviar">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -194,8 +210,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <input type="text" class="form-control" id="inputEmail4" name="nome">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" name="email">
+                            <label for="inputEmail3" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="inputEmail3" name="email">
                         </div>
                         <div class="col-md-4">
                             <label for="inputPassword4" class="form-label">Data de Nascimento</label>
@@ -210,20 +226,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <input type="text" class="form-control phone_with_ddd" id="inputAddress2" name="celular">
                         </div>
                         <div class="col-4">
-                            <label for="inputAddress2" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="inputAddress2" name="cidade">
+                            <label for="inputAddress3" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="inputAddress3" name="cidade">
                         </div>
                         <div class="col-4">
-                            <label for="inputAddress2" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="inputAddress2" name="bairro">
+                            <label for="inputAddress4" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="inputAddress4" name="bairro">
                         </div>
                         <div class="col-4">
-                            <label for="inputAddress2" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="inputAddress2" name="rua">
+                            <label for="inputAddress5" class="form-label">Rua</label>
+                            <input type="text" class="form-control" id="inputAddress5" name="rua">
                         </div>
                         <div class="col-4">
-                            <label for="inputAddress2" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="inputAddress2" name="numero">
+                            <label for="inputAddress6" class="form-label">Número</label>
+                            <input type="number" class="form-control" id="inputAddress6" name="numero">
                         </div>
                         <h1>Informações da Empresa</h1>
                         <div class="col-md-4">
@@ -231,8 +247,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <input type="text" class="form-control" id="inputCity" name="empresa">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputCity" class="form-label">CNPJ</label>
-                            <input type="text" class="form-control cnpj" id="inputCity" name="cnpj">
+                            <label for="inputCity1" class="form-label">CNPJ</label>
+                            <input type="text" class="form-control cnpj" id="inputCity1" name="cnpj">
                         </div>
                         <div class="col-md-4">
                             <label for="inputState" class="form-label">Bairro</label>
@@ -248,12 +264,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <input type="text" class="form-control" id="inputZip" name="rua_cli">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputZip" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="inputZip" name="numero_cli">
+                            <label for="inputZip1" class="form-label">Número</label>
+                            <input type="number" class="form-control" id="inputZip1" name="numero_cli">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputZip" class="form-label">Data - Hora</label>
-                            <input type="text" class="form-control" id="inputZip" Readonly name="dia_hora" value="<?php echo date("d/m/Y - H:i:s") ?>">
+                            <label for="inputZip2" class="form-label">Data - Hora</label>
+                            <input type="text" class="form-control" id="inputZip2" Readonly name="dia_hora" value="<?php echo date("d/m/Y - H:i:s") ?>">
                         </div>
                         <div class="col-md-4">
                             <label for="valor1" class="form-label">Valor</label>

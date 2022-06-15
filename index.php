@@ -2,6 +2,20 @@
 
 include("conn.php");
 
+$sql = "SELECT * FROM cliente";
+$result = mysqli_query($conn, $sql);
+
+if (isset($_POST['enviar'])) {
+
+    $busca = $_POST['busca'];
+
+
+    $sql = "SELECT * FROM cliente WHERE nome LIKE '%$busca%' OR email LIKE '%$busca%' OR cpf LIKE '%$busca%' OR cnpj LIKE '%$busca%'";
+
+
+    $result = mysqli_query($conn, $sql);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -36,10 +50,10 @@ include("conn.php");
       <i class="fas fa-bars"></i>
     </button>
     <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="">
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="busca.php" method="POST">
       <div class="input-group">
-        <input class="form-control" name="buscar" type="text" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-        <button class="btn btn-primary" id="btnNavbarSearch" type="submit">
+        <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+        <button class="btn btn-primary" id="btnNavbarSearch" type="submit" name="enviar">
           <i class="fas fa-search"></i>
         </button>
       </div>
