@@ -25,15 +25,16 @@ if (isset($_POST['enviar'])) {
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Buscar</title>
+    <meta name="description" content="money que é good nóis num have" />
+    <meta name="author" content="iur1Dev" />
+    <title>Pesquisar - Pessoal</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="sb-nav-fixed">
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.php">💰🤑💸</a>
@@ -42,9 +43,9 @@ if (isset($_POST['enviar'])) {
             <i class="fas fa-bars"></i>
         </button>
         <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="POST">
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="busca.php" method="POST">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Pesquisar o caloteiro 🔫" name="busca" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="submit" name="enviar">
                     <i class="fas fa-search"></i>
                 </button>
@@ -70,33 +71,26 @@ if (isset($_POST['enviar'])) {
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Menu</div>
-                        <a class="nav-link" href="cadastro.php">
+                        <a class="nav-link mt-4" href="cadastro.php">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div>
-                            Cadastro
+                            Cadastrar
                         </a>
-                        <a class="nav-link" href="busca.php">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            Pesquisar
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-columns"></i>
                             </div>
-                            Layouts
+                            Pesquisar
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i>
                             </div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                <a class="nav-link" href="busca.php">Info Pessoal</a>
+                                <a class="nav-link" href="busca2.php">Info Empresa</a>
+                                <a class="nav-link" href="busca3.php">Info Valores</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -153,63 +147,55 @@ if (isset($_POST['enviar'])) {
                 </div>
             </nav>
         </div>
+
+        <!-- body -->
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">DataNasc</th>
-                            <th scope="col">CPF</th>
-                            <th scope="col">Celular</th>
-                            <th scope="col">Cidade</th>
-                            <th scope="col">Bairro</th>
-                            <th scope="col">Rua</th>
-                            <th scope="col">Numero</th>
-                            <th scope="col">Empresa</th>
-                            <th scope="col">CNPJ</th>
-                            <th scope="col">Bairro</th>
-                            <th scope="col">Rua</th>
-                            <th scope="col">Numero</th>
-                            <th scope="col">Horario</th>
-                            <th scope="col">Valor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (mysqli_num_rows($result) > 0) {
-                            while ($linha = mysqli_fetch_assoc($result)) {
-                        ?>
-                                <tr onclick="location.href='buscar.php?id=<?php echo $linha['id'] ?>'">
-                                    <th><?php echo $linha['id'] ?></th>
-                                    <td><?php echo $linha['nome'] ?></td>
-                                    <td><?php echo $linha['email'] ?></td>
-                                    <td><?php echo $linha['data_nasc'] ?></td>
-                                    <td><?php echo $linha['cpf'] ?></td>
-                                    <td><?php echo $linha['celular'] ?></td>
-                                    <td><?php echo $linha['cidade_cli'] ?></td>
-                                    <td><?php echo $linha['bairro_cli'] ?></td>
-                                    <td><?php echo $linha['rua_cli'] ?></td>
-                                    <td><?php echo $linha['numero_cli'] ?></td>
-                                    <td><?php echo $linha['empresa'] ?></td>
-                                    <td><?php echo $linha['cnpj'] ?></td>
-                                    <td><?php echo $linha['bairro_id'] ?></td>
-                                    <td><?php echo $linha['rua'] ?></td>
-                                    <td><?php echo $linha['numero'] ?></td>
-                                    <td><?php echo $linha['horario'] ?></td>
-                                    <td><?php echo $linha['valor'] ?></td>
-                                </tr>
-                        <?php }
-                        }
-                        mysqli_close($conn); ?>
-                    </tbody>
-                </table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Nome</th>
+                                <th scope="col" class="text-center">Email</th>
+                                <th scope="col" class="text-center">DataNasc</th>
+                                <th scope="col" class="text-center">CPF</th>
+                                <th scope="col" class="text-center">Celular</th>
+                                <th scope="col" class="text-center">Cidade</th>
+                                <th scope="col" class="text-center">Bairro</th>
+                                <th scope="col" class="text-center">Rua</th>
+                                <th scope="col" class="text-center">Número</th>
+                                <th scope="col" class="text-center">Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (mysqli_num_rows($result) > 0) {
+                                while ($linha = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr onclick="location.href='buscar.php?id=<?php echo $linha['id'] ?>'">
+                                        <th class="text-center"><?php echo $linha['id'] ?></th>
+                                        <td class="text-center"><?php echo $linha['nome'] ?></td>
+                                        <td class="text-center"><?php echo $linha['email'] ?></td>
+                                        <td class="text-center"><?php echo $linha['data_nasc'] ?></td>
+                                        <td class="text-center"><?php echo $linha['cpf'] ?></td>
+                                        <td class="text-center"><?php echo $linha['celular'] ?></td>
+                                        <td class="text-center"><?php echo $linha['cidade_cli'] ?></td>
+                                        <td class="text-center"><?php echo $linha['bairro_cli'] ?></td>
+                                        <td class="text-center"><?php echo $linha['rua_cli'] ?></td>
+                                        <td class="text-center"><?php echo $linha['numero_cli'] ?></td>
+                                        <td class="text-center"><?php echo $linha['horario'] ?></td>
+                                    </tr>
+                            <?php }
+                            }
+                            mysqli_close($conn); ?>
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -217,7 +203,6 @@ if (isset($_POST['enviar'])) {
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="jquery.mask.js"></script>
     <script src="mask.js"></script>

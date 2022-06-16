@@ -2,6 +2,20 @@
 
 include("conn.php");
 
+$sql = "SELECT * FROM cliente";
+$result = mysqli_query($conn, $sql);
+
+if (isset($_POST['enviar'])) {
+
+    $busca = $_POST['busca'];
+
+
+    $sql = "SELECT * FROM cliente WHERE nome LIKE '%$busca%' OR email LIKE '%$busca%' OR cpf LIKE '%$busca%' OR cnpj LIKE '%$busca%'";
+
+
+    $result = mysqli_query($conn, $sql);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +27,7 @@ include("conn.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="money que é good nóis num have" />
     <meta name="author" content="iur1Dev" />
-    <title>Início</title>
+    <title>Pesquisar - Empresa</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -28,8 +42,17 @@ include("conn.php");
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
             <i class="fas fa-bars"></i>
         </button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="busca3.php" method="POST">
+            <div class="input-group">
+                <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="submit" name="enviar">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
         <!-- Navbar-->
-        <ul class="navbar-nav d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -127,15 +150,35 @@ include("conn.php");
 
         <!-- body -->
 
-        <div id="layoutSidenav_content" style="background-image:url(img/money.webp);background-size:cover ;">
+        <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid">
-                    <div class="row text-center align-items-center vh-100">
-                        <div class="col">
-                            <a href="cadastro.php"><button class="btn btn-primary mb-5 fw-bold fs-2">Cadastrar</button></a><br>
-                            <span class="fw-bold fs-1 bg-dark text-white p-2 rounded">Realizando seus sonhos desde 2019 😀</span>
-                        </div>
-                    </div>
+                <div class="container-fluid px-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Nome</th>
+                                <th scope="col" class="text-center">Valor</th>
+                                <th scope="col" class="text-center">Valor com juros</th>
+                                <th scope="col" class="text-center">Valor das parcelas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (mysqli_num_rows($result) > 0) {
+                                while ($linha = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr onclick="location.href='buscar.php?id=<?php echo $linha['id'] ?>'">
+                                        <th class="text-center"><?php echo $linha['id'] ?></th>
+                                        <td class="text-center"><?php echo $linha['nome'] ?></td>
+                                        <td class="text-center"><?php echo number_format($linha['valor'], 2, ',', '.') ?></td>
+                                        <td class="text-center"><?php echo number_format($linha['juros'], 2, ',', '.') ?></td>
+                                        <td class="text-center"><?php echo number_format($linha['parcela'], 2, ',', '.') ?></td>
+                                    </tr>
+                            <?php }
+                            }
+                            mysqli_close($conn); ?>
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </div>
@@ -148,6 +191,9 @@ include("conn.php");
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="jquery.mask.js"></script>
+    <script src="mask.js"></script>
 
 </body>
 
