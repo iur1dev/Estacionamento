@@ -9,9 +9,7 @@ if (isset($_POST['enviar'])) {
 
     $busca = $_POST['busca'];
 
-
     $sql = "SELECT * FROM cliente WHERE nome LIKE '%$busca%' OR email LIKE '%$busca%' OR cpf LIKE '%$busca%' OR cnpj LIKE '%$busca%'";
-
 
     $result = mysqli_query($conn, $sql);
 }
@@ -27,7 +25,7 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="money que é good nóis num have" />
     <meta name="author" content="iur1Dev" />
-    <title>Pesquisar - Empresa</title>
+    <title>Diárias</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -43,7 +41,7 @@ if (isset($_POST['enviar'])) {
         <main>
             <div class="container-fluid px-4">
 
-                <form action="busca3.php" method="POST">
+                <form action="diarias.php" method="POST">
                     <div class="input-group mt-4">
                         <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                         <button class="btn btn-dark" id="btnNavbarSearch" type="submit" name="enviar">
@@ -55,27 +53,38 @@ if (isset($_POST['enviar'])) {
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-center">ID</th>
                             <th scope="col" class="text-center">Nome</th>
-                            <th scope="col" class="text-center">Valor</th>
-                            <th scope="col" class="text-center">Valor com juros</th>
-                            <th scope="col" class="text-center">Valor das parcelas</th>
+                            <th scope="col" class="text-center">Receber</th>
+                            <th scope="col" class="text-center">Enviar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (mysqli_num_rows($result) > 0) {
                             while ($linha = mysqli_fetch_assoc($result)) {
                         ?>
-                                <tr onclick="location.href='buscar.php?id=<?php echo $linha['id'] ?>'">
-                                    <th class="text-center"><?php echo $linha['id'] ?></th>
-                                    <td class="text-center"><?php echo $linha['nome'] ?></td>
-                                    <td class="text-center"><?php echo number_format($linha['valor'], 2, ',', '.') ?></td>
-                                    <td class="text-center"><?php echo number_format($linha['juros'], 2, ',', '.') ?></td>
-                                    <td class="text-center"><?php echo number_format($linha['parcela'], 2, ',', '.') ?></td>
-                                </tr>
+                                <form method="POST">
+                                    <tr>
+                                        <td onclick="location.href='diarias.php?id=<?php echo $linha['id'] ?>'" class="text-center"><?php echo $linha['nome'] ?></td>
+                                        <td class="text-center"><input name="receber" type="text"></td>
+                                        <td class="text-center"><button class="btn btn-dark" name="enviarR">ok</button></td>
+                                    </tr>
+                                </form>
+                                <?php
+                                if (isset($_POST['enviarR'])) {
+
+                                    $recebo = $linha['id'];
+
+                                    $receber = $_POST['receber'];
+
+                                    $sql_receber = "UPDATE cliente SET juros = juros - '$receber'  WHERE id = $recebo ";
+
+                                    $receber_final = mysqli_query($conn, $sql_receber);
+                                }
+                                ?>
                         <?php }
                         }
                         mysqli_close($conn); ?>
+
                     </tbody>
                 </table>
             </div>
