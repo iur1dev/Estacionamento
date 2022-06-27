@@ -27,10 +27,11 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="money que é good nóis num have" />
     <meta name="author" content="iur1Dev" />
-    <title>Pesquisar - Empresa</title>
+    <title>Pesquisar - Valores</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="money.png" type="image/x-icon">
 </head>
 
 <body class="sb-nav-fixed">
@@ -44,7 +45,7 @@ if (isset($_POST['enviar'])) {
             <div class="container-fluid px-4">
 
                 <form action="busca3.php" method="POST">
-                    <div class="input-group mt-4">
+                    <div class="input-group mt-4" style="width: 15rem;">
                         <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                         <button class="btn btn-dark" id="btnNavbarSearch" type="submit" name="enviar">
                             <i class="fas fa-search"></i>

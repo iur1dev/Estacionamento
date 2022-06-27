@@ -25,10 +25,11 @@ if (isset($_POST['enviar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="money que é good nóis num have" />
     <meta name="author" content="iur1Dev" />
-    <title>Diárias</title>
+    <title>Valores</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="money.png" type="image/x-icon">
 </head>
 
 <body class="sb-nav-fixed">
@@ -42,7 +43,7 @@ if (isset($_POST['enviar'])) {
             <div class="container-fluid px-4">
 
                 <form action="diarias.php" method="POST">
-                    <div class="input-group mt-4">
+                    <div class="input-group mt-4" style="width: 15rem;">
                         <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                         <button class="btn btn-dark" id="btnNavbarSearch" type="submit" name="enviar">
                             <i class="fas fa-search"></i>
@@ -54,38 +55,34 @@ if (isset($_POST['enviar'])) {
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">Nome</th>
-                            <th scope="col" class="text-center">Receber</th>
+                            <th scope="col" class="text-center">Receber Valor</th>
+                            <th scope="col" class="text-center">Enviar</th>
+                            <th scope="col" class="text-center">Adicionar Valor</th>
                             <th scope="col" class="text-center">Enviar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (mysqli_num_rows($result) > 0) {
-                            while ($linha = mysqli_fetch_assoc($result)) {
-                        ?>
-                                <form method="POST">
+
+                    <form method="POST">
+                        <tbody>
+                            <?php if (mysqli_num_rows($result) > 0) {
+                                while ($linha = mysqli_fetch_assoc($result)) {
+                            ?>
+
                                     <tr>
                                         <td onclick="location.href='diarias.php?id=<?php echo $linha['id'] ?>'" class="text-center"><?php echo $linha['nome'] ?></td>
-                                        <td class="text-center"><input name="receber" type="text"></td>
-                                        <td class="text-center"><button class="btn btn-dark" name="enviarR">ok</button></td>
+                                        <td class="text-center"><input name="receber" id="receber<?php echo $linha['id'] ?>" type="text"></td>
+                                        <td class="text-center"><a href="javascript:void(0);" onclick="clicar1(<?php echo ($linha['id']); ?>)" class="btn btn-dark" name="enviarR">ok</a></td>
+                                        <td class="text-center"><input name="mandar" id="mandar<?php echo $linha['id'] ?>" type="text"></td>
+                                        <td class="text-center"><a href="javascript:void(0);" onclick="clicar(<?php echo ($linha['id']); ?>)" class="btn btn-dark" name="enviarR">ok</a></td>
                                     </tr>
-                                </form>
-                                <?php
-                                if (isset($_POST['enviarR'])) {
 
-                                    $recebo = $linha['id'];
 
-                                    $receber = $_POST['receber'];
+                            <?php }
+                            }
+                            mysqli_close($conn); ?>
 
-                                    $sql_receber = "UPDATE cliente SET juros = juros - '$receber'  WHERE id = $recebo ";
-
-                                    $receber_final = mysqli_query($conn, $sql_receber);
-                                }
-                                ?>
-                        <?php }
-                        }
-                        mysqli_close($conn); ?>
-
-                    </tbody>
+                        </tbody>
+                    </form>
                 </table>
             </div>
         </main>
@@ -102,6 +99,53 @@ if (isset($_POST['enviar'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="jquery.mask.js"></script>
     <script src="mask.js"></script>
+
+
+    <script>
+        function clicar1(id) {
+
+            var $id = id;
+            var $receber = document.getElementById("receber" + id).value;
+
+            $.ajax({
+                url: "salvar.php",
+                type: "POST",
+                data: "id=" + $id + "&receber=" + $receber,
+
+                success: function(result) {
+
+                    if (result != "") {
+                        alert(result);
+                    } else {
+                        alert("Valor Enviado");
+                        document.getElementById("receber" + id).value = ''
+                    }
+                }
+            });
+        }
+
+        function clicar(id) {
+
+            var $id = id;
+            var $mandar = document.getElementById("mandar" + id).value;
+
+            $.ajax({
+                url: "mandar_valor.php",
+                type: "POST",
+                data: "id=" + $id + "&mandar=" + $mandar,
+
+                success: function(result) {
+
+                    if (result != "") {
+                        alert(result);
+                    } else {
+                        alert("Valor Enviado");
+                        document.getElementById("mandar" + id).value = ''
+                    }
+                }
+            });
+        }
+    </script>
 
 </body>
 

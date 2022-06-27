@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="money.png" type="image/x-icon">
 </head>
 
 <body class="sb-nav-fixed">
@@ -72,52 +73,52 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="container-fluid px-4">
                 <h2 class="mt-4">Informações Pessoais</h2>
                 <form class="row g-3" method="POST" action="cadastro.php">
-                    <div class="col-md-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputEmail4" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="inputEmail4" name="nome">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputEmail3" class="form-label">Email</label>
                         <input type="email" class="form-control" id="inputEmail3" name="email">
                     </div>
-                    <div class="col-md-4">
-                        <label for="inputPassword4" class="form-label">Data de Nascimento</label>
+                    <div class="col-6 col-xl-3">
+                        <label for="inputPassword4" class="form-label">Data Nasc</label>
                         <input type="text" class="form-control date" id="inputPassword4" name="data_nasc">
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputAddress" class="form-label">CPF</label>
                         <input type="text" class="form-control cpf" id="inputAddress" name="cpf">
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputAddress2" class="form-label">Celular</label>
                         <input type="text" class="form-control phone_with_ddd" id="inputAddress2" name="celular">
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputAddress3" class="form-label">Cidade</label>
                         <input type="text" class="form-control" id="inputAddress3" name="cidade">
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputAddress4" class="form-label">Bairro</label>
                         <input type="text" class="form-control" id="inputAddress4" name="bairro">
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputAddress5" class="form-label">Rua</label>
                         <input type="text" class="form-control" id="inputAddress5" name="rua">
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputAddress6" class="form-label">Número</label>
                         <input type="number" class="form-control" id="inputAddress6" name="numero">
                     </div>
                     <h2>Informações da Empresa</h2>
-                    <div class="col-md-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputCity" class="form-label">Empresa</label>
                         <input type="text" class="form-control" id="inputCity" name="empresa">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputCity1" class="form-label">CNPJ</label>
                         <input type="text" class="form-control cnpj" id="inputCity1" name="cnpj">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputState" class="form-label">Bairro</label>
                         <select id="inputState" class="form-select" name="bairro1">
                             <option></option>
@@ -126,28 +127,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <?php  } ?>
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-xl-3">
                         <label for="inputZip" class="form-label">Rua</label>
                         <input type="text" class="form-control" id="inputZip" name="rua_cli">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputZip1" class="form-label">Número</label>
                         <input type="number" class="form-control" id="inputZip1" name="numero_cli">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-6 col-xl-3">
                         <label for="inputZip2" class="form-label">Data - Hora</label>
                         <input type="text" class="form-control" id="inputZip2" Readonly name="dia_hora" value="<?php echo date("d/m/Y - H:i:s") ?>">
                     </div>
                     <h2>Valores</h2>
-                    <div class="col-md-4">
+                    <div class="col-xl-4">
                         <label for="valor1" class="form-label">Valor</label>
                         <input type="text" class="form-control" onblur="test()" id="valor1" name="valor">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xl-4">
                         <label for="valor" class="form-label">Valor com juros</label>
                         <input type="text" class="form-control" readonly id="valor" name="juros">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xl-4">
                         <label for="parc" class="form-label">Valor das parcelas</label>
                         <input type="text" class="form-control" readonly id="parc" name="parc">
                     </div>
@@ -186,10 +187,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $juros = $valor1 * (porc / 100);
             $final = ($juros + $valor1);
-            document.getElementById("valor").value = "R$ "+ $final;
+            document.getElementById("valor").value = $final;
 
             $finalP = $final / 30;
-            document.getElementById("parc").value = "R$ "+ $finalP;
+            document.getElementById("parc").value = $finalP;
         }
     </script>
 

@@ -2,7 +2,10 @@
 
 include("conn.php");
 
-$sql = "SELECT * FROM cliente";
+$sql = "SELECT *
+FROM cliente
+INNER JOIN bairro
+ON cliente.bairro_id = bairro.bairro_id";
 $result = mysqli_query($conn, $sql);
 
 if (isset($_POST['enviar'])) {
@@ -31,6 +34,7 @@ if (isset($_POST['enviar'])) {
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
   <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="money.png" type="image/x-icon">
 </head>
 
 <body class="sb-nav-fixed">
@@ -44,7 +48,7 @@ if (isset($_POST['enviar'])) {
       <div class="container-fluid px-4">
 
         <form action="busca2.php" method="POST">
-          <div class="input-group mt-4">
+          <div class="input-group mt-4" style="width: 15rem;">
             <input class="form-control" type="text" name="busca" placeholder="Pesquisar o caloteiro 🔫" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
             <button class="btn btn-dark" id="btnNavbarSearch" type="submit" name="enviar">
               <i class="fas fa-search"></i>
@@ -74,7 +78,7 @@ if (isset($_POST['enviar'])) {
                   <td class="text-center"><?php echo $linha['nome'] ?></td>
                   <td class="text-center"><?php echo $linha['empresa'] ?></td>
                   <td class="text-center"><?php echo $linha['cnpj'] ?></td>
-                  <td class="text-center"><?php echo $linha['bairro_id'] ?></td>
+                  <td class="text-center"><?php echo $linha['nome1'] ?></td>
                   <td class="text-center"><?php echo $linha['rua'] ?></td>
                   <td class="text-center"><?php echo $linha['numero'] ?></td>
                   <td class="text-center"><?php echo $linha['horario'] ?></td>

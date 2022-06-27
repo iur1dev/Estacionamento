@@ -17,6 +17,7 @@ include("conn.php");
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="money.png" type="image/x-icon">
 </head>
 
 <body class="sb-nav-fixed">
@@ -30,7 +31,6 @@ include("conn.php");
             <div class="container-fluid">
                 <div class="row text-center align-items-center vh-100">
                     <div class="col">
-                        <a href="cadastro.php"><button class="btn btn-primary mb-5 fw-bold fs-2">Cadastrar</button></a><br>
                         <span class="fw-bold fs-1 bg-dark text-white p-2 rounded">Realizando seus sonhos desde 2019 😀</span>
                     </div>
                 </div>
