@@ -13,10 +13,5 @@ if (isset($_POST['id'])) {
     $receber_final = mysqli_query($conn, $sql_receber);
 
 
-    $verificar_valor = "SELECT juros FROM cliente";
-    $verificar_final = mysqli_query($conn, $verificar_valor);
-    echo "<script>alert($verificar_final)</script>";
-    if ($verificar_valor <= 0) {
-        echo "<script>alert('zerou')</script>";
-    }
+   
 }
